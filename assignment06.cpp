@@ -10,10 +10,22 @@
  * -----------------------------------------------------------------------*/
 #include <iostream>
 using std::cout;
-
+using std::endl;
 
 //Selection Sort
 void print_array(int arr_size, const int array[])
+{	
+	cout << "(";
+
+	for(int i=0;i<arr_size;i++)
+	{
+		cout << array[i];
+	}
+
+	cout << ")";
+}
+
+void selection_sort_in_place(int arr_size, int array[])
 {
 	int i,j,k;
 	int min;
@@ -28,19 +40,29 @@ void print_array(int arr_size, const int array[])
 			}
 			array[k]=array[i]; array[i]=min;
 	}
-	for(int i=0;i<arr_size;i++)
-	{
-		cout << array[i]<<" ";
-	}
 }
-
-void selection_sort_in_place(); //TODO
 
 void merge_sort(); //TODO
 
 int main()
 {
-	int a[7] = { 1, 2, 3, 4, 5, 6, 7, };
-	print_array(7, a);
+int arrays[5][7] = {
+   { 1, 2, 3, 4, 5, 6, 7 },
+   { 22, 1, 63, 67, 11, 17, 12, },
+   { 45, 53, 64, 7, 25, 79, 54, },
+   { 34, 21, 35, 84, 16, 10, 36, },
+   { 41, 2, 85, 94, 69, 9, 92, },
+};
 
+for (int i = 0; i < 5; i++) {
+   print_array(7, arrays[i]);
+   cout << endl;
+
+   selection_sort_in_place(7, arrays[i]);
+
+   print_array(7, arrays[i]);
+   cout << endl;
+
+   cout << endl;
+	};
 }
