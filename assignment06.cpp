@@ -13,7 +13,7 @@ using std::cout;
 
 
 //Selection Sort
-void print_array(int arr_size, int array[])
+void print_array(int arr_size, const int array[])
 {
 	int i,j,k;
 	int min;
