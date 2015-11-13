@@ -1,0 +1,125 @@
+/* ----------------------------------------------------------------------------
+* Copyright &copy; 2015 Randy Tanizawa <rtanizawa@csu.fullerton.edu>
+* Released under the [MIT License] (http://opensource.org/licenses/MIT)
+* ------------------------------------------------------------------------- */
+
+/**
+* A program to show: selection sorting with arrays,
+                     merge sorting with vectors,
+                     operation overload ( << )
+*/
+
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
+
+using std::cout;
+using std::endl;
+using std::vector;
+
+void print_array( int size , const int a[] );
+
+void selection_sort_in_place( int size , int a[] );
+
+std::ostream & operator<<(std::ostream &out, std::vector<int> &v)
+{
+    cout << "( ";
+    for(int i = 0; i < v.size(); i++)
+        out << v[i] << " ";
+    cout << ")" << endl;
+    return out;
+}
+
+vector<int> merge_sort(const vector<int> &v);
+
+
+int main()
+{
+    int arr[] = {8,2,1,5,10,4,3,9,6};
+    cout << "Array 1: " << std::setw(3);
+    print_array( 9, arr );
+    cout << "Sorted: " << std::setw(4);
+    selection_sort_in_place( 9, arr );
+    cout << endl;
+
+    std::vector<int> vec[] = { {9,6,2,4,3,5,1,7,10,8},
+                                {2,5,10,6,7,9,1,8,3,4}
+                             };
+
+    vector<int> temp = merge_sort(vec[0]);
+    vector<int> temp2 = merge_sort(vec[1]);
+
+    cout << "Vector 1: " << vec[0];
+    cout << "Sorted: " << std::setw(4) << temp << endl;
+    cout << "Vector 2: " << vec[1];
+    cout << "Sorted: " << std::setw(4) << temp2 << endl;
+
+    return 0;
+}
+
+void print_array( int size , const int a[] )
+{
+    cout << "( ";
+    for(int i = 0; i < size; i++)
+    {
+        cout << a[i] << " ";
+    }
+    cout << ")" << endl;
+}
+
+void selection_sort_in_place( int size , int a[] )
+{
+    int index = 0;
+
+    while( index < (size+1))
+    {
+    for(int i = (index+1); i < size; i++)
+    {
+        if(a[index] >= a[i])
+        {
+            int temp = a[index];
+            a[index] = a[i];
+            a[i] = temp;
+        }
+    }index++;
+    }
+    print_array( size , a );
+}
+
+vector<int> merge_sort(const vector<int> &v)
+{
+    if( v.size() < 2 )
+        return v;
+
+    vector<int> left;
+    vector<int> right;
+    for(int i = 0; i < v.size(); i++)
+    {
+        if( i % 2 == 0)
+            right.push_back(v[i]);
+        else
+            left.push_back(v[i]);
+    }
+
+    left = merge_sort(left);
+    right = merge_sort(right);
+
+    vector<int> sorted;
+    vector<int>::iterator lt = left.begin();
+    vector<int>::iterator rt = right.begin();
+
+    while( lt != left.end() && rt != right.end() )
+    {
+        if( *lt > *rt)
+            sorted.push_back( *(rt++));
+        else
+            sorted.push_back( *(lt++) );
+    }
+    while( lt != left.end() )
+        sorted.push_back(*(lt++));
+    while( rt != right.end() )
+        sorted.push_back(*(rt++));
+
+    return sorted;
+}
