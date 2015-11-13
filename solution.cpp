@@ -49,26 +49,30 @@ void print_array(int i, const int a[]){
     }
     cout << ")";
 }
-
-void selection_sort_in_place(int size, int array[])
+// code referenced from <http://cforbeginners.com/ssort.html>
+void selection_sort_in_place(int n, int arr[])
 {
-    for (int currentIndex = 0; currentIndex < size - 1; currentIndex++)
-    {
-        int minIndex = currentIndex + 1;
-        int minValue = array[minIndex];
+    //pos_min is short for position of min
+	int pos_min,temp;
+    
+	for (int i=0; i < n-1; i++)
+	{
+	    pos_min = i;//set pos_min to the current index of array
+		
+		for (int j=i+1; j < n; j++)
+		{
             
-        for (int i = currentIndex + 1; i < size; i++){
-                        
-                    if (array[i] < minValue){
-                                minValue = array[i];
-                                minIndex = i;
-                    }
+            if (arr[j] < arr[pos_min])
+                pos_min=j;
+            //pos_min will keep track of the index that min is in, this is needed when a swap happens
+		}
+		
+        //if pos_min no longer equals i than a smaller value must have been found, so a swap must occur
+        if (pos_min != i)
+        {
+            temp = arr[i];
+            arr[i] = arr[pos_min];
+            arr[pos_min] = temp;
         }
-                
-        if (minValue < array[currentIndex]){
-            int temp = array[currentIndex];
-                    array[currentIndex] = array[minIndex];
-                    array[minIndex] = temp;
-        }
-    }
+	}
 }
