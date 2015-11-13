@@ -11,6 +11,22 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+using std::ostream;
+
+#include <vector>
+using std::vector;
+
+ostream& operator<<(ostream& os, const vector<int> &v) 
+{
+	os << "( ";
+	for (int i = 0; i < v.size(); i++) 
+	{
+		os << v[i] << " ";
+	}
+	os << ")";
+
+	return os;
+}
 
 //Selection Sort
 void print_array(int arr_size, const int array[])
