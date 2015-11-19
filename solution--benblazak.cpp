@@ -1,5 +1,6 @@
 /* ----------------------------------------------------------------------------
  * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+ * 2015 Sebastian Trece Yarleque <nerd_wizard@csu.fullerton.edu)
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
  * ------------------------------------------------------------------------- */
 
