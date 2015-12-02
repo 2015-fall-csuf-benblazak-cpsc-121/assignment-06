@@ -1,0 +1,120 @@
+/* ----------------------------------------------------------------------------
+* Copyright &copy; 2015 Duy Nguyen <andy21996@csu.fullerton.edu>
+* Released under the [MIT License] (http://opensource.org/licenses/MIT)
+* ------------------------------------------------------------------------- */
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <ostream>
+using std::cout;
+using std::endl;
+using std::vector;
+
+void print_array(int size, const int array[])
+{
+	cout << "( ";
+	for (int i = 0; i < size; i++)
+		cout << array[i] << " ";
+	cout << " )";
+}
+
+void selection_sort_in_place(int size, int array[])
+{
+	for (int currentIndex = 0; currentIndex < size - 1; currentIndex++)
+	{
+		int minIndex = currentIndex + 1;
+		int minValue = array[minIndex];
+		for (int i = currentIndex + 1; i < size; i++)
+		{
+			if (array[i] < minValue)
+			{
+				minValue = array[i];
+				minIndex = i;
+			}
+		}
+		if (minValue < array[currentIndex])
+		{
+			int temp = array[currentIndex];
+			array[currentIndex] = array[minIndex];
+			array[minIndex] = temp;
+		}
+	}
+}
+
+vector<int> merge_sort(const vector<int>& v)
+{
+	if (v.size() == 1)
+		return v;
+	int size = static_cast<int>(v.size());
+	vector<int> left;
+	vector<int> right;
+
+	for (int i = 0; i < (size - 1) / 2; i++)
+		left[i] = v[i];
+	for (int i = (size - 1) / 2; i < size - 1; i++)
+		right[i] = v[i];
+
+	merge_sort(left);
+	merge_sort(right);
+
+	vector<int> sorted;
+	int sizeLeft = static_cast<int>(left.size());
+	int sizeRight = static_cast<int>(right.size());
+
+	int l = 0;
+	int r = 0;
+	int s = 0;
+
+	while (l < sizeLeft && r < sizeRight)
+	{
+		if (left[l] < right[r])
+		{
+			sorted[s] = left[l];
+			s++;
+			l++;
+		}
+		else
+		{
+			sorted[s] = right[r];
+			s++;
+			r++;
+		}
+	}
+	if (r < sizeRight)
+	{
+		for (int i = r; i < sizeRight; i++)
+			sorted[s] = right[i];
+	}
+	if (l < sizeLeft)
+	{
+		for (int i = l; i < sizeLeft; i++)
+			sorted[s] = left[i];
+	}
+	return sorted;
+}
+
+int main()
+{
+	int array[7] = { 3, 5, 4, 1, 7, 2, 6, };
+	print_array(7, array);
+	cout << endl;
+	selection_sort_in_place(7, array);
+	print_array(7, array);
+	cout << endl;
+	vector<int> v{ 5, 7, 3, 6, 4, 1, 2, };
+	for (int i = 0; i < static_cast<int>(v.size()); i++)
+	{
+		cout << v[i] << " ";
+	}
+	cout << endl;
+
+	vector<int> v2 = merge_sort(v);
+	for (int i = 0; i < static_cast<int>(v2.size()); i++)
+	{
+		cout << v2[i] << " ";
+	}
+
+	return 0;
+}
