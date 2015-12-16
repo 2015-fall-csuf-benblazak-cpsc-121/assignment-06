@@ -4,7 +4,7 @@
  * ------------------------------------------------------------------------- */
 
 /**
- * An implementation of merge sort, along with a few very simple tests.
+ * An implementation of merge sort, along with a few very simple tests
  */
 
 #include <vector>
